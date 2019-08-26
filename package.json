@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/Fasust/HighResImage-to-DeepZoomImage/issues"
   },
-  "homepage": "https://github.com/Fasust/HighResImage-to-DeepZoomImage#readme"
+  "homepage": "https://github.com/Fasust/HighResImage-to-DeepZoomImage#readme",
+  "dependencies": {
+    "sharp": "^0.23.0"
+  }
 }
