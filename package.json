@@ -1,0 +1,23 @@
+{
+  "name": "highresimage-to-deepzoomimage",
+  "version": "1.0.0",
+  "description": "NodeJS Service that converts high resolution images to a Deep Zoom Image Tree",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fasust/HighResImage-to-DeepZoomImage.git"
+  },
+  "keywords": [
+    "DZI",
+    "DeepZoomImages"
+  ],
+  "author": "Sebastian Faust",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fasust/HighResImage-to-DeepZoomImage/issues"
+  },
+  "homepage": "https://github.com/Fasust/HighResImage-to-DeepZoomImage#readme"
+}
