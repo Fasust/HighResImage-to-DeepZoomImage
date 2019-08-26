@@ -5,7 +5,7 @@ const app = express();
 
 const PORT = 3000;
 const DEFAULT_TILE_SIZE = 512;
-const DZI_OUTPUT = "img/output";
+const DZI_OUTPUT = "img/output.zip";
 
 //Routes ---
 app.get("/", function(req, res) {
@@ -20,9 +20,9 @@ app.get("/", function(req, res) {
       console.log(
         "[LOG] Image successfully converted | schema: " +
           DZI_OUTPUT +
-          ".dzi | files: " +
+          "/output/output.dzi | files: " +
           DZI_OUTPUT +
-          "_files"
+          "/output/output_files"
       );
       res.send("Image has ben successfully converted");
     });
