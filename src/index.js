@@ -9,7 +9,7 @@ const DZI_OUTPUT = "img/output";
 
 //Routes ---
 app.get("/", function(req, res) {
-  sharp("input.jpg")
+  sharp("test-input.jpg")
     .png()
     .tile({
       size: DEFAULT_TILE_SIZE
