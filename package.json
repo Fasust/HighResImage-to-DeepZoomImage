@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Fasust/HighResImage-to-DeepZoomImage#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-fileupload": "^1.1.5",
     "sharp": "^0.23.0"
   }
 }
