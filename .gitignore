@@ -1,6 +1,9 @@
 #DZI images
 /output/*.zip
 
+#VS Code
+.vscode/
+
 # Logs
 logs
 *.log
