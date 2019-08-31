@@ -7,19 +7,20 @@ const app = express();
 // default options
 app.use(fileUpload());
 
-const PORT = 3001;
+const PORT = 3000;
 const DEFAULT_TILE_SIZE = 512;
 const OUTPUT_DIR = "output/";
 const OUTPUT_FILE_NAME = "output.zip";
-const INPUT_DIR = "input/";
 
 //Routes ---
 app.post("/", function(req, res) {
+  // Load File From Request ---------
   let keys;
   try {
     keys = Object.keys(req.files);
   } catch (err) {
-    return res.status(400).send("Could not access file in request");
+    console.log("[ERROR]: "+ err);
+    return res.status(400).send("Could not access file in request"); 
   }
 
   if (keys.length == 0) return res.status(400).send("No file Attached");
@@ -28,28 +29,24 @@ app.post("/", function(req, res) {
 
   let img = req.files[keys[0]];
 
-  // Use the mv() method to place the file somewhere on your server
-  img.mv(INPUT_DIR + "in.jpg", function(err) {
-    if (err) return res.status(500).send(err);
+  console.log("[LOG] Received Image");
 
-    console.log("[LOG] Upload successful");
-
-    sharp(INPUT_DIR + "in.jpg")
-      .png()
-      .tile({
-        size: DEFAULT_TILE_SIZE
-      })
-      .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(err, info) {
-        // output.dzi is the Deep Zoom XML definition
-        // output_files contains 512x512 tiles grouped by zoom level
-        console.log(
-          "[LOG] Image successfully converted | file: " +
-            OUTPUT_DIR +
-            OUTPUT_FILE_NAME
-        );
-        res.send("Image has ben successfully converted");
-      });
-  });
+  //Convert buffered Image to DZI -------
+  sharp(img.data)
+    .png()
+    .tile({
+      size: DEFAULT_TILE_SIZE
+    })
+    .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(err, info) {
+      // output.dzi is the Deep Zoom XML definition
+      // output_files contains 512x512 tiles grouped by zoom level
+      console.log(
+        "[LOG] Image successfully converted | file: " +
+          OUTPUT_DIR +
+          OUTPUT_FILE_NAME
+      );
+      res.send("Image has ben successfully converted");
+    });
 });
 
 //Open Service ---
