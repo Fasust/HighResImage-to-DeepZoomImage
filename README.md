@@ -24,10 +24,12 @@ The console should say: _"[LOG] Opened Service on Port: 3000"_
 # Endpoints
 
 The service has to end-points
+
 | End Point      | HTTP Verb | Use                                   | Request                | Response                                                     |
-| -------------- | --------- | ------------------------------------- | ---------------------- | ------------------------------------------------------------ |
+|----------------|-----------|---------------------------------------|------------------------|--------------------------------------------------------------|
 | /              | POST      | Convert an attached img to DZI format | Needs an attached file | A zip file containing the DZI image, it is send via a stream |
 | /download-test | GET       | Download the last converted DZI zip   | can be empty           | A zip file containing the DZI image, it is send via a stream |
+
 # Structure of the DZI zip file
 ```java
 output.zip
