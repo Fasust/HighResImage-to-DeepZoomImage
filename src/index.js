@@ -7,7 +7,7 @@ const app = express();
 // default options
 app.use(fileUpload());
 
-const PORT = 3000;
+const PORT = 3001;
 const DEFAULT_TILE_SIZE = 512;
 const OUTPUT_DIR = "output/";
 const OUTPUT_FILE_NAME = "output.zip";
@@ -15,10 +15,16 @@ const INPUT_DIR = "input/";
 
 //Routes ---
 app.post("/", function(req, res) {
-  let keys = Object.keys(req.files);
+  let keys;
+  try {
+    keys = Object.keys(req.files);
+  } catch (err) {
+    return res.status(400).send("Could not access file in request");
+  }
 
-  if (keys.length == 0) return res.status(400).send("No files were uploaded.");
-  if (keys.length > 1) return res.status(400).send("Can only process one file at a time.");
+  if (keys.length == 0) return res.status(400).send("No file Attached");
+  if (keys.length > 1)
+    return res.status(400).send("Can only process one file at a time");
 
   let img = req.files[keys[0]];
 
@@ -33,16 +39,13 @@ app.post("/", function(req, res) {
       .tile({
         size: DEFAULT_TILE_SIZE
       })
-      .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(
-        err,
-        info
-      ) {
+      .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(err, info) {
         // output.dzi is the Deep Zoom XML definition
         // output_files contains 512x512 tiles grouped by zoom level
         console.log(
           "[LOG] Image successfully converted | file: " +
             OUTPUT_DIR +
-            OUTPUT_FILE_NAME 
+            OUTPUT_FILE_NAME
         );
         res.send("Image has ben successfully converted");
       });
