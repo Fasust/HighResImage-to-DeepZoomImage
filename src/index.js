@@ -49,6 +49,7 @@ app.post("/", function(req, res) {
 });
 
 app.get("/download-test",function(req, res) {
+  console.log("[LOG] Opening test Stream");
   res.setHeader("content-type", "zip");
   fs.createReadStream('./' + OUTPUT_DIR + OUTPUT_FILE_NAME).pipe(res);
 });
