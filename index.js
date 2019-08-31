@@ -7,6 +7,7 @@ const OUTPUT_FILE_NAME = "output.zip";
 const express = require("express");
 const sharp = require("sharp");
 const fileUpload = require("express-fileupload");
+const fs = require("fs");
 const app = express();
 
 app.use(fileUpload());
@@ -37,14 +38,20 @@ app.post("/", function(req, res) {
       size: DEFAULT_TILE_SIZE
     })
     .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(err, info) {
-      
       console.log(
         "[LOG] Image successfully converted | file: " +
           OUTPUT_DIR +
           OUTPUT_FILE_NAME
       );
-      
-      return res.sendFile( __dirname+"/"+ OUTPUT_DIR+OUTPUT_FILE_NAME);
+      res.setHeader("content-type", "zip");
+      fs.readFile("./" + OUTPUT_DIR + OUTPUT_FILE_NAME, (err, data) => {
+        if (err) {
+          console.log("[ERROR] DZI could not be sent: " + err);
+          return res.status(500).send("DZI could not be sent");
+        }
+        console.log("[LOG] DZI was sent");
+        return res.end(data);
+      });
     });
 });
 
