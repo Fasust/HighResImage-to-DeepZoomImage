@@ -10,17 +10,17 @@ app.use(fileUpload());
 const PORT = 3000;
 const DEFAULT_TILE_SIZE = 512;
 const OUTPUT_DIR = "output/";
-const OUTPUT_FILE_NAME = "output";
-const OUTPUT_FILE_EXTENSION = ".zip";
+const OUTPUT_FILE_NAME = "output.zip";
 const INPUT_DIR = "input/";
 
 //Routes ---
 app.post("/", function(req, res) {
-  if (Object.keys(req.files).length == 0) {
-    return res.status(400).send("No files were uploaded.");
-  }
+  let keys = Object.keys(req.files);
 
-  let img = req.files.file;
+  if (keys.length == 0) return res.status(400).send("No files were uploaded.");
+  if (keys.length > 1) return res.status(400).send("Can only process one file at a time.");
+
+  let img = req.files[keys[0]];
 
   // Use the mv() method to place the file somewhere on your server
   img.mv(INPUT_DIR + "in.jpg", function(err) {
@@ -33,27 +33,16 @@ app.post("/", function(req, res) {
       .tile({
         size: DEFAULT_TILE_SIZE
       })
-      .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME + OUTPUT_FILE_EXTENSION, function(err, info) {
+      .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(
+        err,
+        info
+      ) {
         // output.dzi is the Deep Zoom XML definition
         // output_files contains 512x512 tiles grouped by zoom level
         console.log(
-          "[LOG] Image successfully converted | schema: " +
+          "[LOG] Image successfully converted | file: " +
             OUTPUT_DIR +
-            OUTPUT_FILE_NAME +
-            OUTPUT_FILE_EXTENSION +
-            "/" +
-            OUTPUT_FILE_NAME +
-            "/" +
-            OUTPUT_FILE_NAME +
-            ".dzi | files: " +
-            OUTPUT_DIR +
-            OUTPUT_FILE_NAME +
-            OUTPUT_FILE_EXTENSION +
-            "/" +
-            OUTPUT_FILE_NAME +
-            "/" +
-            OUTPUT_FILE_NAME +
-            "_files"
+            OUTPUT_FILE_NAME 
         );
         res.send("Image has ben successfully converted");
       });
