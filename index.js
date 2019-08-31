@@ -44,15 +44,13 @@ app.post("/", function(req, res) {
           OUTPUT_FILE_NAME
       );
       res.setHeader("content-type", "zip");
-      fs.readFile("./" + OUTPUT_DIR + OUTPUT_FILE_NAME, (err, data) => {
-        if (err) {
-          console.log("[ERROR] DZI could not be sent: " + err);
-          return res.status(500).send("DZI could not be sent");
-        }
-        console.log("[LOG] DZI was sent");
-        return res.end(data);
-      });
+      fs.createReadStream('./' + OUTPUT_DIR + OUTPUT_FILE_NAME).pipe(res);
     });
+});
+
+app.get("/download-test",function(req, res) {
+  res.setHeader("content-type", "zip");
+  fs.createReadStream('./' + OUTPUT_DIR + OUTPUT_FILE_NAME).pipe(res);
 });
 
 //Open Service ---
