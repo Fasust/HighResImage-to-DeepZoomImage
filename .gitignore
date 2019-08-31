@@ -1,5 +1,5 @@
 #DZI images
-/output
+/output/*.zip
 
 # Logs
 logs

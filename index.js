@@ -1,16 +1,15 @@
+const PORT = 3000;
+const DEFAULT_TILE_SIZE = 512;
+const OUTPUT_DIR = "output/";
+const OUTPUT_FILE_NAME = "output.zip";
+
 //Modules ---
 const express = require("express");
 const sharp = require("sharp");
 const fileUpload = require("express-fileupload");
 const app = express();
 
-// default options
 app.use(fileUpload());
-
-const PORT = 3000;
-const DEFAULT_TILE_SIZE = 512;
-const OUTPUT_DIR = "output/";
-const OUTPUT_FILE_NAME = "output.zip";
 
 //Routes ---
 app.post("/", function(req, res) {
@@ -19,8 +18,8 @@ app.post("/", function(req, res) {
   try {
     keys = Object.keys(req.files);
   } catch (err) {
-    console.log("[ERROR]: "+ err);
-    return res.status(400).send("Could not access file in request"); 
+    console.log("[ERROR]: " + err);
+    return res.status(400).send("Could not access file in request");
   }
 
   if (keys.length == 0) return res.status(400).send("No file Attached");
@@ -38,14 +37,14 @@ app.post("/", function(req, res) {
       size: DEFAULT_TILE_SIZE
     })
     .toFile(OUTPUT_DIR + OUTPUT_FILE_NAME, function(err, info) {
-      // output.dzi is the Deep Zoom XML definition
-      // output_files contains 512x512 tiles grouped by zoom level
+      
       console.log(
         "[LOG] Image successfully converted | file: " +
           OUTPUT_DIR +
           OUTPUT_FILE_NAME
       );
-      res.send("Image has ben successfully converted");
+      
+      return res.sendFile( __dirname+"/"+ OUTPUT_DIR+OUTPUT_FILE_NAME);
     });
 });
 
