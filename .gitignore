@@ -2,7 +2,7 @@
 /output/*.zip
 
 #VS Code
-.vscode/
+/.vscode/
 
 # Logs
 logs
