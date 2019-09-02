@@ -33,13 +33,13 @@ The service has to end-points
 The DZI Zip files are very large in size. Especially when the service converts a large Image. That is why I am using streams as a response type instead of sending the entire file at once.
 
 # Structure of the DZI zip file
-```c
+```
 output.zip
 |
 output
 |
-├── output.dzi //Deep Zoom XML definition
-└── output_files //Contains 512x512 tiles grouped by zoom level
+├── output.dzi      //Deep Zoom XML definition
+└── output_files    //Contains 512x512 tiles grouped by zoom level
     ├── 0
     |   └── 0_0.png
     ├── 1
