@@ -6,6 +6,8 @@ I am using the node module [Sharp](https://sharp.pixelplumbing.com/en/stable/api
 
 [Examples](http://feinerarts.com/feiner-arts---deep-zoom.html) of Deep Zoom Images on the Web.
 
+A large [JPG](https://github.com/Fasust/HighResImage-to-DeepZoomImage/blob/master/test-input.jpg) you can use to test this service.
+
 # Setup
 
 ```
