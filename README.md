@@ -26,7 +26,7 @@ The console should say: _"[LOG] Opened Service on Port: 3000"_
 
 # Endpoints
 
-The service has to end-points
+The service has 2 end-points
 
 | End Point      | HTTP Verb | Use                                   | Request                | Response                                                     |
 | -------------- | --------- | ------------------------------------- | ---------------------- | ------------------------------------------------------------ |
